@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "drf_spectacular",
     # Local apps
     "accounts.apps.AccountsConfig",
+    "recipe.apps.RecipeConfig",
 ]
 
 REST_FRAMEWORK = {
