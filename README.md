@@ -15,3 +15,8 @@
 ### 03-recipe-app 
 - created recipe app with `docker-compose exec web python manage.py startapp recipe`
 - added model testing
+
+### 04-authentication
+- added registration with email confirmation
+- added jwt authentication
+- used `djoser` and `djangorestframework-simplejwt`
