@@ -20,3 +20,14 @@
 - added registration with email confirmation
 - added jwt authentication
 - used `djoser` and `djangorestframework-simplejwt`
+
+### 05-authorization
+- users can see only published recipes (list and detail)
+- only authorized users can add recipes
+- recipe is not published by default
+- `DELETE` endpoint to only unpublishes recipes
+- only owners can update/delete recipes
+- users can see all their recipes in a separate endpoint
+- changed the group name from api to recipe in swagger
+
+# TODO: token blacklisting and expiration, validation, testing, email service, images, pagination-searching-ordering, caching, rate limiting

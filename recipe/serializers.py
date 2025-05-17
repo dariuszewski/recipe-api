@@ -3,6 +3,20 @@ from .models import Recipe
 
 
 class RecipeSerializer(serializers.ModelSerializer):
+    author = serializers.CharField(source="author.username", read_only=True)
+
     class Meta:
         model = Recipe
-        fields = "__all__"
+        fields = [
+            "id",
+            "name",
+            "description",
+            "directions",
+            "cook_time",
+            "num_of_servings",
+            "is_publish",
+            "created_at",
+            "updated_at",
+            "author",
+        ]
+        read_only_fields = ["id", "created_at", "author"]
