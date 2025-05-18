@@ -34,4 +34,7 @@
 - refresh token blaclisting
 - extend experiation time of access token for development purposes
 
-# TODO: recipe validation, testing, email service, images, pagination-searching-ordering, caching, rate limiting
+### 07-recipe-validation
+- added validation to the recipe model
+
+# TODO: testing, email service, images, pagination-searching-ordering, caching, rate limiting
