@@ -37,4 +37,9 @@
 ### 07-recipe-validation
 - added validation to the recipe model
 
-# TODO: testing, email service, images, pagination-searching-ordering, caching, rate limiting
+### 08-recipe-testing
+- tested custom code
+= added coverage
+- added `manage.py` to .coveragerc
+
+# TODO: email service, images, pagination-searching-ordering, caching, rate limiting
