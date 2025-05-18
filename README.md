@@ -46,4 +46,9 @@
 - added features (no extra libs)
 - added tests
 
-# TODO: email service, images, caching, rate limiting
+### 10-working-with-images
+- added media directories
+- added `COMPONENT_SPLIT_REQUEST: True` to `SPECTACULAR_SETTINGS`
+- updated model and serializer
+
+# TODO: email service, caching, rate limiting

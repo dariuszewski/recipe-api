@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     "rest_framework_simplejwt.token_blacklist",
     "drf_spectacular",
-    "django_filters",
     # Local apps
     "accounts.apps.AccountsConfig",
     "recipe.apps.RecipeConfig",
@@ -60,8 +59,6 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication"
     ],
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
-    # "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
-    # "PAGE_SIZE": 5,
 }
 
 SIMPLE_JWT = {
@@ -103,6 +100,7 @@ SPECTACULAR_SETTINGS = {
     "TITLE": "Recipe API",
     "DESCRIPTION": "API for managing recipes",
     "VERSION": "1.0.0",
+    "COMPONENT_SPLIT_REQUEST": True,
 }
 
 CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"]
@@ -177,6 +175,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = "static/"
+
+# Media files
+MEDIA_URL = "media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

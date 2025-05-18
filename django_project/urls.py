@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path, include, re_path
 
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
@@ -17,4 +19,4 @@ urlpatterns = [
     re_path(r"^auth/", include("djoser.urls")),
     re_path(r"^auth/", include("djoser.urls.jwt")),
     path("auth/jwt/blacklist/", TokenBlacklistView.as_view(), name="token_blacklist"),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
