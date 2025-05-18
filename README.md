@@ -13,7 +13,7 @@
 - run locally with `docker-compose up --build`
 
 ### 03-recipe-app 
-- created recipe app with `docker-compose exec web python manage.py startapp recipe`
+- created recipe app with `docker-compose exec api python manage.py startapp recipe`
 - added model testing
 
 ### 04-authentication
@@ -30,4 +30,8 @@
 - users can see all their recipes in a separate endpoint
 - changed the group name from api to recipe in swagger
 
-# TODO: token blacklisting and expiration, validation, testing, email service, images, pagination-searching-ordering, caching, rate limiting
+### 06-token-blacklisting-and-expiration
+- refresh token blaclisting
+- extend experiation time of access token for development purposes
+
+# TODO: recipe validation, testing, email service, images, pagination-searching-ordering, caching, rate limiting
