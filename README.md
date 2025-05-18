@@ -39,7 +39,11 @@
 
 ### 08-recipe-testing
 - tested custom code
-= added coverage
+- added coverage
 - added `manage.py` to .coveragerc
 
-# TODO: email service, images, pagination-searching-ordering, caching, rate limiting
+### 09-searching-ordering-pagination
+- added features (no extra libs)
+- added tests
+
+# TODO: email service, images, caching, rate limiting

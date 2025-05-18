@@ -1,21 +1,70 @@
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, filters
+from rest_framework.exceptions import ValidationError
 from django.db.models import Q
+from drf_spectacular.utils import extend_schema, OpenApiParameter
 
 from .models import Recipe
 from .serializers import RecipeSerializer
 from .permissions import IsAuthorOrReadOnly
+from .pagination import RecipeLimitOffsetPagination
 
 
+@extend_schema(
+    parameters=[
+        OpenApiParameter(
+            name="search",
+            description="Search term.",
+            required=False,
+            type=str,
+            location=OpenApiParameter.QUERY,
+        ),
+        OpenApiParameter(
+            name="max_cook_time",
+            description="Maximum cook time in minutes",
+            required=False,
+            type=int,
+            location=OpenApiParameter.QUERY,
+        ),
+        OpenApiParameter(
+            name="ordering",
+            location=OpenApiParameter.QUERY,
+            required=False,
+            description='Order by updated_at (use "updated_at" or "-updated_at")',
+            type=str,
+        ),
+    ]
+)
 class RecipeList(generics.ListCreateAPIView):
     """
     API view to retrieve list of recipes or create a new recipe.
     """
 
-    queryset = Recipe.objects.filter(is_publish=True).order_by(
-        "-updated_at", "-created_at"
-    )
     serializer_class = RecipeSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = ["updated_at"]
+    ordering = ["-updated_at"]
+    pagination_class = RecipeLimitOffsetPagination
+
+    def get_queryset(self):
+        search = self.request.query_params.get("search", None)
+        max_cook_time = self.request.query_params.get("max_cook_time", None)
+
+        queryset = Recipe.objects.filter(is_publish=True)
+
+        if search:
+            queryset = queryset.filter(
+                Q(name__icontains=search)
+                | Q(description__icontains=search)
+                | Q(description__icontains=search)
+            )
+
+        if max_cook_time:
+            if not max_cook_time.isdigit():
+                raise ValidationError({"max_cook_time": "Must be a valid integer."})
+            queryset = queryset.filter(cook_time__lte=max_cook_time)
+
+        return queryset
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)

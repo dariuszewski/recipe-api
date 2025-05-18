@@ -182,3 +182,20 @@ class RecipeTests(TestCase):
         recipe = Recipe.objects.filter(pk=self.recipe1.pk).first()
         self.assertEqual(response.status_code, 204)
         self.assertFalse(recipe.is_publish)
+
+    def test_recipe_filters(self):
+        # Test that the search filter works
+        response = self.unauthenticated_client.get("/recipes/?search=Another Published")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data), 1)
+
+        # Test that the max_cook_time filter works
+        response = self.unauthenticated_client.get("/recipes/?max_cook_time=25")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data), 1)
+
+    def test_recipe_invalid_max_cook_time(self):
+        # Test that an invalid max_cook_time raises a validation error
+        response = self.unauthenticated_client.get("/recipes/?max_cook_time=invalid")
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.data["max_cook_time"], "Must be a valid integer.")
