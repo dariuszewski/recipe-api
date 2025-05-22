@@ -19,4 +19,5 @@ urlpatterns = [
     re_path(r"^auth/", include("djoser.urls")),
     re_path(r"^auth/", include("djoser.urls.jwt")),
     path("auth/jwt/blacklist/", TokenBlacklistView.as_view(), name="token_blacklist"),
+    path("auth/", include("accounts.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -58,4 +58,7 @@
 - caching: added recipe/ cache and cache invalidation on unsafe requests
 - created testing env without throttling
 
-# TODO: email service
+### 12-email-service
+- installed `django-anymail`
+- configured email service 
+- configured local env variables
