@@ -1,14 +1,30 @@
 from django.contrib.auth import get_user_model
+from django.core.cache import cache
 from django.test import TestCase
-from rest_framework.test import APITestCase, APIClient
-from rest_framework_simplejwt.tokens import RefreshToken
+from django.test.utils import override_settings
+from rest_framework.test import APIClient
 
 from .models import Recipe
 
 
+@override_settings(
+    REST_FRAMEWORK={
+        "DEFAULT_PERMISSION_CLASSES": [
+            "rest_framework.permissions.AllowAny",
+        ],
+        "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+        "DEFAULT_AUTHENTICATION_CLASSES": [
+            "rest_framework_simplejwt.authentication.JWTAuthentication"
+        ],
+        "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
+        "DEFAULT_THROTTLE_CLASSES": [],
+        "DEFAULT_THROTTLE_RATES": {},
+    },
+)
 class RecipeTests(TestCase):
     def setUp(self):
         # set up users
+        cache.clear()
         self.user = get_user_model().objects.create_user(
             username="testuser",
             email="test@email.com",
@@ -199,3 +215,9 @@ class RecipeTests(TestCase):
         response = self.unauthenticated_client.get("/recipes/?max_cook_time=invalid")
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.data["max_cook_time"], "Must be a valid integer.")
+
+    def test_recipe_valid_max_cook_time(self):
+        # Test that a valid max_cook_time works
+        response = self.unauthenticated_client.get("/recipes/?max_cook_time=25")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data), 1)

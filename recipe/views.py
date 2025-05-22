@@ -1,6 +1,7 @@
-from rest_framework import generics, permissions, filters
-from rest_framework.exceptions import ValidationError
 from django.db.models import Q
+from django.core.cache import cache
+from rest_framework import generics, permissions, filters, response
+from rest_framework.exceptions import ValidationError
 from drf_spectacular.utils import extend_schema, OpenApiParameter
 
 from .models import Recipe
@@ -66,8 +67,22 @@ class RecipeList(generics.ListCreateAPIView):
 
         return queryset
 
+    def list(self, request, *args, **kwargs):
+        cache_key = "recipe_list"
+        data = cache.get(cache_key)
+
+        if data is None:
+            queryset = self.get_queryset()
+            serializer = self.get_serializer(queryset, many=True)
+            data = serializer.data
+            cache.set(cache_key, data, timeout=300)
+
+        return response.Response(data)
+
     def perform_create(self, serializer):
-        serializer.save(author=self.request.user)
+        instance = serializer.save(author=self.request.user)
+        cache.delete("recipe_list")
+        return instance
 
 
 class RecipeDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -85,8 +100,14 @@ class RecipeDetail(generics.RetrieveUpdateDestroyAPIView):
             return Recipe.objects.filter(Q(is_publish=True) | Q(author=user))
         return Recipe.objects.filter(is_publish=True)
 
+    def perform_update(self, serializer):
+        instance = serializer.save()
+        cache.delete("recipe_list")
+        return instance
+
     def perform_destroy(self, instance):
         instance.is_publish = False
+        cache.delete("recipe_list")
         instance.save()
 
 

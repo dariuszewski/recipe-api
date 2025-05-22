@@ -59,6 +59,11 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication"
     ],
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
+    "DEFAULT_THROTTLE_CLASSES": [
+        "rest_framework.throttling.AnonRateThrottle",
+        "rest_framework.throttling.UserRateThrottle",
+    ],
+    "DEFAULT_THROTTLE_RATES": {"anon": "10/minute", "user": "20/minute"},
 }
 
 SIMPLE_JWT = {
@@ -76,6 +81,13 @@ DJOSER = {
     "ACTIVATION_URL": "#/activate/{uid}/{token}",
     "SEND_ACTIVATION_EMAIL": True,
     "SERIALIZERS": {},
+}
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "127.0.0.1:11211",
+    }
 }
 
 SITE_ID = 1

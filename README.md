@@ -41,6 +41,8 @@
 - tested custom code
 - added coverage
 - added `manage.py` to .coveragerc
+- to run tests with coverage: `docker-compose exec api coverage run manage.py test`
+- to generate html report: `docker-compose exec api coverage html`
 
 ### 09-searching-ordering-pagination
 - added features (no extra libs)
@@ -50,5 +52,10 @@
 - added media directories
 - added `COMPONENT_SPLIT_REQUEST: True` to `SPECTACULAR_SETTINGS`
 - updated model and serializer
+
+### 11-throttling-and-caching
+- throttling: limited amount of requests users can make per minute
+- caching: added recipe/ cache and cache invalidation on unsafe requests
+- created testing env without throttling
 
 # TODO: email service, caching, rate limiting
