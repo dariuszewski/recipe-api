@@ -58,4 +58,4 @@
 - caching: added recipe/ cache and cache invalidation on unsafe requests
 - created testing env without throttling
 
-# TODO: email service, caching, rate limiting
+# TODO: email service
