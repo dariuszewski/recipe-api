@@ -95,11 +95,5 @@ local_settings.py
 db.sqlite3
 db.sqlite3-journal
 
-# coverage
-htmlcov/
-.coverage
-.coveragerc
-
 # media
-media/recipes/*
-
+media/
