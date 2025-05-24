@@ -69,3 +69,6 @@
 - `docker-compose exec api python manage.py check --deploy`
 
 ### 14-deployment
+- created db
+- deployed app
+- ran migrations
