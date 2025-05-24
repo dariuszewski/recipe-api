@@ -4,11 +4,16 @@ from rest_framework import status
 from django.contrib.auth.tokens import default_token_generator
 from djoser.utils import decode_uid
 from django.contrib.auth import get_user_model
+from drf_spectacular.utils import extend_schema
 from rest_framework.decorators import api_view
 
 User = get_user_model()
 
 
+@extend_schema(
+    responses={200: None, 400: None},
+    description="Activate user account via UID and token.",
+)
 @api_view(["GET"])
 def activate_user(request, uid, token):
     try:

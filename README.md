@@ -62,3 +62,8 @@
 - installed `django-anymail`
 - configured email service 
 - configured local env variables
+
+### 13-deployment-checklist
+- move variables to docker-compose.yaml
+- `docker-compose -f docker-compose-prod.yml up -d`
+- `docker-compose exec api python manage.py check --deploy`
