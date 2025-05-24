@@ -11,6 +11,7 @@
 
 # Docker
 docker-compose.yml
+docker-compose-prod.yml
 Dockerfile
 .docker
 .dockerignore
@@ -93,4 +94,12 @@ venv/
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
+
+# coverage
+htmlcov/
+.coverage
+.coveragerc
+
+# media
+media/recipes/*
 

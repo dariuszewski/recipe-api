@@ -2,7 +2,7 @@
 services:
   api:
     build: .
-    command: python /recipe-api/manage.py runserver 0.0.0.0:8000
+    command: gunicorn django_project.wsgi:application -b 0.0.0.0:8000
     volumes:
       - .:/recipe-api
     ports:
@@ -12,7 +12,7 @@ services:
     environment:
       - "DJANGO_SECRET_KEY=django-insecure-v@ay64_w==krzouda^uwrw4p0bq+4l=jw04)uc9&f2e!22ft!n"
       - "DJANGO_DEBUG=True"
-      - "DJANGO_ALLOWED_HOSTS=localhost,"
+      - "DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1"
       # database settings
       - "DJANGO_DB_NAME=postgres"
       - "DJANGO_DB_USER=postgres"
