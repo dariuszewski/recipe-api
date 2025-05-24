@@ -1,0 +1,44 @@
+
+services:
+  api:
+    build: .
+    command: python /recipe-api/manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/recipe-api
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+    environment:
+      - "DJANGO_SECRET_KEY=django-insecure-v@ay64_w==krzouda^uwrw4p0bq+4l=jw04)uc9&f2e!22ft!n"
+      - "DJANGO_DEBUG=True"
+      - "DJANGO_ALLOWED_HOSTS=localhost,"
+      # database settings
+      - "DJANGO_DB_NAME=postgres"
+      - "DJANGO_DB_USER=postgres"
+      - "DJANGO_DB_PASSWORD=postgres"
+      - "DJANGO_DB_HOST=db"
+      - "DJANGO_DB_PORT=5432"
+      # email settings
+      - "DJANGO_EMAIL_BACKEND=django.core.mail.backends.console.EmailBackend"
+      - "DJANGO_DEFAULT_FROM_EMAIL=webmaster@localhost"
+      - "EMAIL_API_KEY="
+      - "EMAIL_SECRET_KEY="
+      # security settings
+      - "DJANGO_SECURE_HSTS_SECONDS=0"
+      - "DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS=False"
+      - "DJANGO_SECURE_HSTS_PRELOAD=False"
+      - "DJANGO_SECURE_SSL_REDIRECT=False"
+      - "DJANGO_SESSION_COOKIE_SECURE=False"
+      - "DJANGO_CSRF_COOKIE_SECURE=False"
+  db:
+    image: postgres:15
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - "POSTGRES_HOST_AUTH_METHOD=trust"
+
+volumes:
+  postgres_data:
