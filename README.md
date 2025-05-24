@@ -67,3 +67,5 @@
 - move variables to docker-compose.yaml
 - `docker-compose -f docker-compose-prod.yml up -d`
 - `docker-compose exec api python manage.py check --deploy`
+
+### 14-deployment

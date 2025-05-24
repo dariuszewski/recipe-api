@@ -11,6 +11,7 @@
 
 # Docker
 docker-compose.yml
+docker-compose-prod.yml
 Dockerfile
 .docker
 .dockerignore
@@ -94,3 +95,5 @@ local_settings.py
 db.sqlite3
 db.sqlite3-journal
 
+# media
+media/

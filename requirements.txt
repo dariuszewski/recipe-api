@@ -10,5 +10,6 @@ drf-spectacular==0.28.0
 drf-spectacular-sidecar==2025.5.1
 environs[django]==14.2.0
 flake8==7.2.0
+gunicorn==23.0.0
 pillow==11.2.1
 psycopg2-binary==2.9.10
