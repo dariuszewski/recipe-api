@@ -1,5 +1,10 @@
 # Recipe API
 
+## Demo
+
+### Swagger UI
+https://recipe-api-12345-59f73797ab98.herokuapp.com/api/schema/swagger-ui/
+
 ## Commit History
 
 ### 01-getting-started
